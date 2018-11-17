@@ -4,7 +4,7 @@
 
     <groupId>net.milanvit</groupId>
     <artifactId>sfg-pet-clinic</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <modules>
         <module>pet-clinic-data</module>
@@ -46,7 +46,7 @@
     </build>
 
     <scm>
-        <developerConnection>scm:git:git@github.com:Cellane/sfg-pet-clinic.git</developerConnection>
+        <developerConnection>scm:git:cellane.github.com:Cellane/sfg-pet-clinic</developerConnection>
         <tag>sfg-pet-clinic-0.0.1</tag>
     </scm>
 </project>
