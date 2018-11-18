@@ -2,9 +2,11 @@ package net.milanvit.sfgpetclinic.service.map;
 
 import net.milanvit.sfgpetclinic.model.Pet;
 import net.milanvit.sfgpetclinic.service.PetService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
     @Override
     public Set<Pet> findAll() {
