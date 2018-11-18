@@ -1,10 +1,7 @@
 package net.milanvit.sfgpetclinic.bootstrap;
 
 import net.milanvit.sfgpetclinic.model.*;
-import net.milanvit.sfgpetclinic.service.OwnerService;
-import net.milanvit.sfgpetclinic.service.PetTypeService;
-import net.milanvit.sfgpetclinic.service.SpecialtyService;
-import net.milanvit.sfgpetclinic.service.VetService;
+import net.milanvit.sfgpetclinic.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +13,15 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
+    private final VisitService visitService;
 
     public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
-                      SpecialtyService specialtyService) {
+                      SpecialtyService specialtyService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialtyService = specialtyService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -76,6 +75,15 @@ public class DataLoader implements CommandLineRunner {
 
         ownerService.save(owner1);
         ownerService.save(owner2);
+
+        // VISIT
+        Visit visit1 = new Visit();
+
+        visit1.setPet(fionasCat);
+        visit1.setDate(LocalDate.now());
+        visit1.setDescription("Sneezy Kitty");
+
+        visitService.save(visit1);
 
         // SPECIALTY
         Specialty radiology = new Specialty();
