@@ -2,11 +2,10 @@ package net.milanvit.sfgpetclinic.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.Set;
+import net.milanvit.sfgpetclinic.BaseEntity;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Vet extends Person {
-    private Set<Specialty> specialties;
+public class Specialty extends BaseEntity {
+    private String description;
 }
