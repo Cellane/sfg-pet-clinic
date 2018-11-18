@@ -1,11 +1,18 @@
 package net.milanvit.sfgpetclinic.service.map;
 
 import net.milanvit.sfgpetclinic.model.Owner;
-import net.milanvit.sfgpetclinic.service.CrudService;
+import net.milanvit.sfgpetclinic.service.OwnerService;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+@Component
+public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
+    @Override
+    public Owner findByLastName(String lastName) {
+        return null;
+    }
+
     @Override
     public Set<Owner> findAll() {
         return super.findAll();
