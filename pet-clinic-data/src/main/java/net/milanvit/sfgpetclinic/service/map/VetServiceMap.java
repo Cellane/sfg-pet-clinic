@@ -3,11 +3,13 @@ package net.milanvit.sfgpetclinic.service.map;
 import net.milanvit.sfgpetclinic.model.Vet;
 import net.milanvit.sfgpetclinic.service.SpecialtyService;
 import net.milanvit.sfgpetclinic.service.VetService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default", "map"})
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
     private final SpecialtyService specialtyService;
 
