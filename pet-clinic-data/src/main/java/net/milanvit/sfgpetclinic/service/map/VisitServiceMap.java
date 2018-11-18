@@ -2,9 +2,11 @@ package net.milanvit.sfgpetclinic.service.map;
 
 import net.milanvit.sfgpetclinic.model.Visit;
 import net.milanvit.sfgpetclinic.service.VisitService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class VisitServiceMap extends AbstractMapService<Visit, Long> implements VisitService {
     @Override
     public Set<Visit> findAll() {
