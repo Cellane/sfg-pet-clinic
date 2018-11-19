@@ -1,14 +1,15 @@
 package net.milanvit.sfgpetclinic.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import net.milanvit.sfgpetclinic.BaseEntity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @MappedSuperclass
 public class Person extends BaseEntity {
     @Column(name = "first_name")
@@ -16,4 +17,9 @@ public class Person extends BaseEntity {
 
     @Column(name = "last_name")
     private String lastName;
+
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }

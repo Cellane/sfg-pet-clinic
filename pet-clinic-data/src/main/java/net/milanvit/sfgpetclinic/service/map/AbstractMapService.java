@@ -1,6 +1,6 @@
 package net.milanvit.sfgpetclinic.service.map;
 
-import net.milanvit.sfgpetclinic.BaseEntity;
+import net.milanvit.sfgpetclinic.model.BaseEntity;
 
 import java.util.*;
 

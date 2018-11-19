@@ -1,14 +1,15 @@
 package net.milanvit.sfgpetclinic.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import net.milanvit.sfgpetclinic.BaseEntity;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "visits")
 public class Visit extends BaseEntity {
