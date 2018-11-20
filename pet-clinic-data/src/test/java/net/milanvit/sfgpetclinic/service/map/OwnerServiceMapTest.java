@@ -4,6 +4,8 @@ import net.milanvit.sfgpetclinic.model.Owner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OwnerServiceMapTest {
@@ -64,16 +66,19 @@ class OwnerServiceMapTest {
 
     @Test
     void findByLastName() {
-        Owner smith = service.findByLastName(lastName);
+        List<Owner> owners = service.findAllByLastNameLike(lastName);
+        boolean containsSmith = owners.stream()
+            .map(Owner::getLastName)
+            .anyMatch(surname -> surname.equalsIgnoreCase(lastName));
 
-        assertNotNull(smith);
-        assertEquals(lastName, smith.getLastName());
+        assertFalse(owners.isEmpty());
+        assertTrue(containsSmith);
     }
 
     @Test
     void findByLastNameNotFound() {
-        Owner foo = service.findByLastName("foo");
+        List<Owner> owners = service.findAllByLastNameLike("foo");
 
-        assertNull(foo);
+        assertTrue(owners.isEmpty());
     }
 }

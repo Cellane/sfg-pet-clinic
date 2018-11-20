@@ -5,13 +5,13 @@ import net.milanvit.sfgpetclinic.service.PetTypeService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 @Profile({"default", "map"})
 public class PetTypeServiceMap extends AbstractMapService<PetType, Long> implements PetTypeService {
     @Override
-    public Set<PetType> findAll() {
+    public List<PetType> findAll() {
         return super.findAll();
     }
 

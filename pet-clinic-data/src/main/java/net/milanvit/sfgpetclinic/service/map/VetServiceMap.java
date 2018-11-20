@@ -6,7 +6,7 @@ import net.milanvit.sfgpetclinic.service.VetService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 @Profile({"default", "map"})
@@ -18,7 +18,7 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
     }
 
     @Override
-    public Set<Vet> findAll() {
+    public List<Vet> findAll() {
         return super.findAll();
     }
 

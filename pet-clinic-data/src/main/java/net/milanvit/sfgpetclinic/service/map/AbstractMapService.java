@@ -7,8 +7,8 @@ import java.util.*;
 public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
     private Map<Long, T> map = new HashMap<>();
 
-    Set<T> findAll() {
-        return new HashSet<>(map.values());
+    List<T> findAll() {
+        return new ArrayList<>(map.values());
     }
 
     T findById(ID id) {

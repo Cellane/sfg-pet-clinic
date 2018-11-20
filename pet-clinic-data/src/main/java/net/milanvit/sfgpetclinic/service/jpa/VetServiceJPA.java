@@ -6,8 +6,8 @@ import net.milanvit.sfgpetclinic.service.VetService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Profile("jpa")
@@ -19,8 +19,8 @@ public class VetServiceJPA implements VetService {
     }
 
     @Override
-    public Set<Vet> findAll() {
-        Set<Vet> vets = new HashSet<>();
+    public List<Vet> findAll() {
+        List<Vet> vets = new ArrayList<>();
 
         vetRepository.findAll().forEach(vets::add);
 

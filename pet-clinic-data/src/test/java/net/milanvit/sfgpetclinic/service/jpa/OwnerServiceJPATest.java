@@ -11,9 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,20 +32,27 @@ class OwnerServiceJPATest {
     private OwnerServiceJPA service;
     private final String lastName = "Smith";
     private Owner returnOwner;
+    private List<Owner> returnOwners;
 
     @BeforeEach
     void setUp() {
         returnOwner = Owner.builder().id(1L).lastName(lastName).build();
+        returnOwners = new ArrayList<>();
+        returnOwners.add(returnOwner);
     }
 
     @Test
     void findByLastName() {
-        when(ownerRepository.findByLastName(any())).thenReturn(returnOwner);
+        when(ownerRepository.findAllByLastNameLike(any())).thenReturn(returnOwners);
 
-        Owner smith = service.findByLastName(lastName);
+        List<Owner> owners = service.findAllByLastNameLike(lastName);
+        boolean containsSmith = owners.stream()
+            .map(Owner::getLastName)
+            .anyMatch(surname -> surname.equalsIgnoreCase(lastName));
 
-        assertEquals(lastName, smith.getLastName());
-        verify(ownerRepository).findByLastName(any());
+        assertFalse(owners.isEmpty());
+        assertTrue(containsSmith);
+        verify(ownerRepository).findAllByLastNameLike(any());
     }
 
     @Test
@@ -59,7 +64,7 @@ class OwnerServiceJPATest {
 
         when(ownerRepository.findAll()).thenReturn(returnOwnersSet);
 
-        Set<Owner> owners = service.findAll();
+        List<Owner> owners = service.findAll();
 
         assertNotNull(owners);
         assertEquals(2, owners.size());

@@ -8,8 +8,8 @@ import net.milanvit.sfgpetclinic.service.OwnerService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Profile("jpa")
@@ -26,13 +26,13 @@ public class OwnerServiceJPA implements OwnerService {
     }
 
     @Override
-    public Owner findByLastName(String lastName) {
-        return ownerRepository.findByLastName(lastName);
+    public List<Owner> findAllByLastNameLike(String lastName) {
+        return ownerRepository.findAllByLastNameContaining(lastName);
     }
 
     @Override
-    public Set<Owner> findAll() {
-        Set<Owner> owners = new HashSet<>();
+    public List<Owner> findAll() {
+        List<Owner> owners = new ArrayList<>();
 
         ownerRepository.findAll().forEach(owners::add);
 
