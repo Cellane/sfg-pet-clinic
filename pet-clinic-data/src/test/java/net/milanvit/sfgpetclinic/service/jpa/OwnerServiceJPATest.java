@@ -43,7 +43,7 @@ class OwnerServiceJPATest {
 
     @Test
     void findByLastName() {
-        when(ownerRepository.findAllByLastNameLike(any())).thenReturn(returnOwners);
+        when(ownerRepository.findAllByLastNameContaining(any())).thenReturn(returnOwners);
 
         List<Owner> owners = service.findAllByLastNameLike(lastName);
         boolean containsSmith = owners.stream()
@@ -52,7 +52,7 @@ class OwnerServiceJPATest {
 
         assertFalse(owners.isEmpty());
         assertTrue(containsSmith);
-        verify(ownerRepository).findAllByLastNameLike(any());
+        verify(ownerRepository).findAllByLastNameContaining(any());
     }
 
     @Test
