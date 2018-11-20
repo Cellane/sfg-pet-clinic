@@ -6,17 +6,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/owners")
 @Controller
 public class OwnerController {
+    private static final String VIEWS_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
+    private static final String VIEW_FIND_OWNERS = "owners/findOwners";
+    private static final String VIEW_OWNERS_LIST = "owners/ownersList";
+    private static final String REDIRECT_OWNER = "redirect:/owners/";
+
     private final OwnerService ownerService;
 
     public OwnerController(OwnerService ownerService) {
@@ -28,11 +31,12 @@ public class OwnerController {
         dataBinder.setDisallowedFields("id");
     }
 
-    @GetMapping("/find")
+    @GetMapping("/fi" +
+        "nd")
     public String findOwners(Model model) {
         model.addAttribute("owner", Owner.builder().build());
 
-        return "owners/findOwners";
+        return VIEW_FIND_OWNERS;
     }
 
     @GetMapping("")
@@ -46,15 +50,15 @@ public class OwnerController {
         if (results.isEmpty()) {
             result.rejectValue("lastName", "notFound", "not found");
 
-            return "owners/findOwners";
+            return VIEW_FIND_OWNERS;
         } else if (results.size() == 1) {
             owner = results.iterator().next();
 
-            return "redirect:/owners/" + owner.getId();
+            return REDIRECT_OWNER + owner.getId();
         } else {
             model.addAttribute("results", results);
 
-            return "owners/ownersList";
+            return VIEW_OWNERS_LIST;
         }
     }
 
@@ -65,5 +69,42 @@ public class OwnerController {
         mav.addObject(ownerService.findById(ownerId));
 
         return mav;
+    }
+
+    @GetMapping("/new")
+    public String initCreationForm(Model model) {
+        model.addAttribute("owner", Owner.builder().build());
+
+        return VIEWS_CREATE_OR_UPDATE_OWNER_FORM;
+    }
+
+    @PostMapping("/new")
+    public String processCreationForm(@Valid Owner owner, BindingResult result) {
+        if (result.hasErrors()) {
+            return VIEWS_CREATE_OR_UPDATE_OWNER_FORM;
+        }
+
+        Owner savedOwner = ownerService.save(owner);
+
+        return REDIRECT_OWNER + savedOwner.getId();
+    }
+
+    @GetMapping("/{id}/edit")
+    public String initUpdateOwnerForm(@PathVariable Long id, Model model) {
+        model.addAttribute("owner", ownerService.findById(id));
+
+        return VIEWS_CREATE_OR_UPDATE_OWNER_FORM;
+    }
+
+    @PostMapping("/{id}/edit")
+    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable Long id) {
+        if (result.hasErrors()) {
+            return VIEWS_CREATE_OR_UPDATE_OWNER_FORM;
+        }
+
+        owner.setId(id);
+        Owner savedOwner = ownerService.save(owner);
+
+        return REDIRECT_OWNER + savedOwner.getId();
     }
 }
