@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/owners")
 @Controller
 public class OwnerController {
-    private static final String VIEWS_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
+    private static final String VIEW_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
     private static final String VIEW_FIND_OWNERS = "owners/findOwners";
     private static final String VIEW_OWNERS_LIST = "owners/ownersList";
     private static final String REDIRECT_OWNER = "redirect:/owners/";
@@ -75,13 +75,13 @@ public class OwnerController {
     public String initCreationForm(Model model) {
         model.addAttribute("owner", Owner.builder().build());
 
-        return VIEWS_CREATE_OR_UPDATE_OWNER_FORM;
+        return VIEW_CREATE_OR_UPDATE_OWNER_FORM;
     }
 
     @PostMapping("/new")
     public String processCreationForm(@Valid Owner owner, BindingResult result) {
         if (result.hasErrors()) {
-            return VIEWS_CREATE_OR_UPDATE_OWNER_FORM;
+            return VIEW_CREATE_OR_UPDATE_OWNER_FORM;
         }
 
         Owner savedOwner = ownerService.save(owner);
@@ -93,13 +93,13 @@ public class OwnerController {
     public String initUpdateOwnerForm(@PathVariable Long id, Model model) {
         model.addAttribute("owner", ownerService.findById(id));
 
-        return VIEWS_CREATE_OR_UPDATE_OWNER_FORM;
+        return VIEW_CREATE_OR_UPDATE_OWNER_FORM;
     }
 
     @PostMapping("/{id}/edit")
     public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable Long id) {
         if (result.hasErrors()) {
-            return VIEWS_CREATE_OR_UPDATE_OWNER_FORM;
+            return VIEW_CREATE_OR_UPDATE_OWNER_FORM;
         }
 
         owner.setId(id);

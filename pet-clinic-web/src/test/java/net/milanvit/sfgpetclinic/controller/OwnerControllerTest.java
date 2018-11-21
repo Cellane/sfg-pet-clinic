@@ -29,8 +29,8 @@ class OwnerControllerTest {
     @InjectMocks
     OwnerController controller;
 
-    MockMvc mockMvc;
-    List<Owner> owners;
+    private MockMvc mockMvc;
+    private List<Owner> owners;
 
     @Mock
     private OwnerService ownerService;
